@@ -7,10 +7,17 @@ import bodyParser from 'body-parser';
 import flash from 'connect-flash';
 import connectSessionKnex from 'connect-session-knex';
 import cookieParser from 'cookie-parser';
+
+/* eslint-disable */
+import metlo from 'metlo';
+if (process.env.METLO_API_KEY && process.env.METLO_HOST) {
+    metlo(process.env.METLO_API_KEY, process.env.METLO_HOST);
+}
+
 import express, { NextFunction, Request, Response } from 'express';
 import * as OpenApiValidator from 'express-openapi-validator';
 import expressSession from 'express-session';
-import metlo from 'metlo';
+
 import passport from 'passport';
 import path from 'path';
 import reDoc from 'redoc-express';
@@ -30,11 +37,6 @@ import { userModel } from './models/models';
 import morganMiddleware from './morganMiddleware';
 import { apiV1Router } from './routers/apiV1Router';
 import { VERSION } from './version';
-
-if (process.env.METLO_API_KEY && process.env.METLO_HOST) {
-    Logger.info(`Started Metlo connection: ${process.env.METLO_HOST}`);
-    metlo(process.env.METLO_API_KEY, process.env.METLO_HOST);
-}
 
 // @ts-ignore
 // eslint-disable-next-line no-extend-native, func-names
